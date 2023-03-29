@@ -1,12 +1,14 @@
 
 # Folders
-./DL/
-./ML/
-./0.GetStarted/0.MNIST/dataset/
-./0.GetStarted/1.CIFAR10/dataset/
+DL
+ML
+0.GetStarted/0.MNIST/dataset
+0.GetStarted/1.CIFAR10/dataset
+0.GetStarted/1.CIFAR10/logs_train
 
 # weights
 *.pt
+*.pth
 
 
 # file
