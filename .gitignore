@@ -14,7 +14,7 @@ ML
 # file
 *.gz
 *.zip
-
+*.ai
 
 # Others
 *-ubyte

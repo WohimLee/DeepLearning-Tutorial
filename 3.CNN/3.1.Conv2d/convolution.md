@@ -1,0 +1,14 @@
+
+
+
+
+## Padding
+
+## Stride
+
+
+
+## Weights
+
+
+## Bias
