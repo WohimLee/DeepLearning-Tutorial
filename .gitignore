@@ -15,6 +15,7 @@ ML
 *.gz
 *.zip
 *.ai
+test.py
 
 # Others
 *-ubyte
