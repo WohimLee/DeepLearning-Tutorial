@@ -41,4 +41,28 @@ $$x_{new} = x - lr*gradient$$
 
 
 &emsp;
+# 2 Two-Dimentional GD
+如果现在输入是一个 $2D$ 的矩阵，这里先提一个新名词：batch size，大家先对他有个印象：
+$$X = \begin{bmatrix}
+x_{1} & x_{2} & x_{3} & x_{4}
+\end{bmatrix}$$
+
+经过方程 $y = 3x^2 + 6x + 5$ 后的结果为：
+$$Y = \begin{bmatrix}
+y_{1} & y_{2} & y_{3} & y_{4}
+\end{bmatrix}$$
+
+我们写出对应的所有方程：
+$$\begin{matrix}y_1 = 3x_1^2 + 6x_1 + 5 \\ \\
+y_2 = 3x_2^2 + 6x_2 + 5 \\ \\
+y_3 = 3x_3^2 + 6x_3 + 5 \\ \\
+y_4 = 3x_4^2 + 6x_4 + 5
+\end{matrix}$$ 
+
+
+&emsp;
 # 2 Multivariate GD
+
+
+
+
