@@ -51,15 +51,24 @@ $$Recall = \frac{TP}{TP + FN}$$
 - $\beta=1$: 称为 $F1\ score$
 $$F = \frac{(1 + \beta^2)\times Precision \times Recall}{\beta^2 \times Precision + Recall}$$
 
-
 &emsp;
-# ROC 
+# ROC 曲线
 - TPR 和 FPR 的曲线
 
 &emsp;
 # AUC（Area Under Curve）
 
+&emsp;
+# PR 曲线
+- Precision 和 Recall 的曲线
 
 &emsp;
-# PR 
-- Precision 和 Recall 的曲线
+# AP（Average Precision）
+- PR 曲线下的面积
+
+&emsp;
+# mAP（mean Average Precision）
+- 多个类别 AP 的平均值
+
+
+
