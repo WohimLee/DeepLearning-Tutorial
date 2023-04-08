@@ -26,3 +26,6 @@ A bias term is a learnable parameter in a neural network that is added to the ou
 By setting the bias to False, the network is forced to learn representations that do not rely on a shift in the activation function. This can help to prevent overfitting and improve the network's ability to generalize. Additionally, setting the bias to False can reduce the number of parameters in the model, which can help to improve computational efficiency and reduce the risk of overfitting.
 
 It's worth noting that setting the bias to False is not always necessary or desirable, and it depends on the specific problem and architecture. In some cases, the bias term can be important for achieving good performance. Therefore, it's important to experiment with different configurations and evaluate their performance on a validation set to determine the best approach for a particular problem.
+
+
+

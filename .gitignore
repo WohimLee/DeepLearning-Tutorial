@@ -16,6 +16,7 @@ ML
 *.zip
 *.ai
 test.py
+.DS_Store
 
 # Others
 *-ubyte
