@@ -4,14 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 # random.seed(1888)
 
-def draw_line(k, b):
-    x1 = 0
-    y1 = k*x1 + b
-    x2 = 10
-    y2 = k*x2 + b
-    
-    plt.plot([x1, x2], [y1, y2], 'g-')
-
 
 def train(epoch=1000, lr=1e-2):
 
@@ -47,10 +39,7 @@ if __name__ == '__main__':
     
     x = x / len(x)
     y = y / len(y)
-    # plt.scatter(x, y)
-    # plt.title("House Price")
-    # plt.grid()
-    # plt.savefig("./houseprice.png")
+
     
     k, b = train()
     #估算2019年的房价多少
