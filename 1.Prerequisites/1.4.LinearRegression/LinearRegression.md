@@ -5,6 +5,7 @@
 
 
 # 1 1D-Dimension
+假设影响房价的因素只有一个：年份，我们将经过处理的数据可视化出来
 <div align=center>
     <image src='imgs/houseprice.png' width=400>
 </div>
