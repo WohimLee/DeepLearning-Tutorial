@@ -4,6 +4,37 @@
 
 ## Padding
 
+The condition padding - kernel_size // 2 >= 0 is used to check whether the specified padding value is large enough to ensure that the convolution operation can be applied to all pixels in the input tensor without exceeding its boundaries.
+
+If padding - kernel_size // 2 >= 0, it means that there is enough padding to ensure that the convolution operation can be applied to all pixels in the input tensor without running out of bounds. In this case, the hor_padding and ver_padding variables are set such that the same amount of padding is added to both sides of the input tensor along the horizontal and vertical dimensions.
+
+If padding - kernel_size // 2 < 0, it means that the specified padding value is not enough to apply the convolution operation to all pixels in the input tensor without running out of bounds. In this case, the hor_padding and ver_padding variables are set such that the convolution operation is only applied to a cropped version of the input tensor, with self.crop pixels removed from the left and right sides (along the horizontal dimension) or top and bottom sides (along the vertical dimension).
+
+By checking the condition padding - kernel_size // 2 >= 0, the code ensures that the convolution operation is applied to as much of the input tensor as possible, while also avoiding errors caused by attempting to apply the convolution operation to pixels that lie outside the boundaries of the input tensor.
+
+
+```py
+if padding - kernel_size // 2 >= 0:
+    self.crop    = 0
+    hor_padding  = [padding - kernel_size // 2, padding]
+    ver_padding  = [padding, padding - kernel_size // 2]
+else:
+    self.crop    = kernel_size // 2 - padding
+    hor_padding  = [0, padding]
+    ver_padding  = [padding, 0]
+```
+
+The self.crop attribute is used to store the amount of cropping that needs to be applied to the input tensor before the convolution operation can be applied.
+
+If self.crop is zero, it means that there is enough padding to ensure that the convolution operation can be applied to all pixels in the input tensor without running out of bounds, and therefore no cropping is necessary.
+
+If self.crop is greater than zero, it means that the specified padding value is not enough to apply the convolution operation to all pixels in the input tensor without running out of bounds, and cropping needs to be applied to the input tensor to ensure that the convolution operation can be applied to a valid region of the input tensor.
+
+The self.crop attribute is used later in the forward method to crop the input tensor along the horizontal and vertical dimensions if self.crop is greater than zero. Specifically, the ver_input and hor_input variables are created by slicing the input tensor to remove self.crop pixels from the left and right sides (along the horizontal dimension) or top and bottom sides (along the vertical dimension). This ensures that the convolution operation is applied only to the valid region of the input tensor, and not to pixels that lie outside the boundaries of the input tensor.
+
+
+In cases where padding is not sufficient to prevent the filter from extending beyond the boundaries of the input tensor, cropping may be used to remove the outer rows and/or columns of the input tensor. Cropping involves removing a specified number of rows and/or columns from the edges of the input tensor to ensure that the filter remains fully overlaid with the input tensor at each position
+
 ## Stride
 
 >卷积后的 $W、H$
