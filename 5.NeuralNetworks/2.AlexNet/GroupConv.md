@@ -35,4 +35,5 @@ Grouped convolutions can help in reducing the computational cost and memory usag
     <image src='imgs/group-conv.png' width=600>
 </div>
 
+最后输出是 concatenate
 

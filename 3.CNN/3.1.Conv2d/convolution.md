@@ -35,6 +35,16 @@ The self.crop attribute is used later in the forward method to crop the input te
 
 In cases where padding is not sufficient to prevent the filter from extending beyond the boundaries of the input tensor, cropping may be used to remove the outer rows and/or columns of the input tensor. Cropping involves removing a specified number of rows and/or columns from the edges of the input tensor to ensure that the filter remains fully overlaid with the input tensor at each position
 
+>padding after a BN layer
+
+The reason why some people set padding after a BatchNorm layer using BatchNorm statistics instead of setting padding while operating a Conv layer or an AvgPool layer is to avoid information loss.
+
+When padding is applied to a Conv layer or an AvgPool layer, the padded values are typically set to zero. This can cause information loss because the mean and variance of the input data may change due to the zero-padding. When the input data distribution changes, the statistics of the BatchNorm layer can become inaccurate and lead to degraded performance.
+
+To avoid this issue, some people choose to apply padding after the BatchNorm layer using the statistics computed during training. By doing so, the padding values are added to the input data after normalization, and the BatchNorm statistics are preserved. This can help to maintain the accuracy of the BatchNorm layer and improve the overall performance of the model.
+
+However, it is worth noting that this approach may not always be necessary or beneficial for all models and tasks. It is important to carefully consider the specific requirements of each model and experiment to determine the most appropriate approach for applying padding and BatchNorm layers.
+
 ## Stride
 
 >卷积后的 $W、H$

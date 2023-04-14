@@ -38,5 +38,9 @@ class Conv2d_1:
         pass
 
 
-
+pool = nn.MaxPool2d(
+    kernel_size=2, 
+    stride=1,
+    padding=0
+)
 
