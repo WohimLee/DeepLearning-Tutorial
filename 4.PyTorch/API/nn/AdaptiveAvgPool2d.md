@@ -1,0 +1,2 @@
+&emsp;
+# AdaptiveAvgPool2d

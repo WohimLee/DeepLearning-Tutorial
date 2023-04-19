@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 predict = np.array([1.5, 2.1, 3.8, 4.2, 5.0])
 target  = np.array([1.2, 2.0, 3.5, 4.0, 5.5])
 
-
-def MSELoss(predict, target):
-    loss = np.mean((predict - target) ** 2)
+n = len(predict)
+def MSELoss(predict, target, n):
+    loss = np.sum((predict - target) ** 2) / n
     return loss
 
 # plot the data
@@ -24,6 +24,6 @@ plt.title('MSE Loss')
 plt.legend()
 plt.show()
 
-mse_loss = MSELoss(predict, target)
+mse_loss = MSELoss(predict, target, n)
 
 print(mse_loss)

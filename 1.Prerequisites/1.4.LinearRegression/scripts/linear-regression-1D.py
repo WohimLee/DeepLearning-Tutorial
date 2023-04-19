@@ -1,4 +1,4 @@
-import time
+
 import random
 import numpy as np
 import matplotlib.pyplot as plt
@@ -34,8 +34,8 @@ def train(epoch=1000, lr=1e-2):
 
 if __name__ == '__main__':
     x = np.arange(10, dtype=np.float32)
-    y = np.arange(10, dtype=np.float32)+np.random.randn(10)
-    # y = np.array([[1.8, 2.1, 2.3, 2.3, 2.85, 3.0, 3.3, 4.9, 5.45, 5.0]], dtype=np.float32).T
+    # y = np.arange(10, dtype=np.float32)+np.random.randn(10)
+    y = np.array([[1.8, 2.1, 2.3, 2.3, 2.85, 3.0, 3.3, 4.9, 5.45, 5.0]], dtype=np.float32).T
     
     x = x / len(x)
     y = y / len(y)
@@ -44,11 +44,11 @@ if __name__ == '__main__':
     k, b = train()
     #估算2019年的房价多少
     #归一化
-    x_2019 = (2019-2009) / 10.0
-    v_2019 = x_2019 * k + b
+    x_2023 = (2023-2009) / 10.0
+    y_2023 = x_2023 * k + b
 
     #结果反归一化
-    v_2019 = v_2019 * 10
-    print("模型的参数是：k=%f, b=%f, 预估的2019房价为：%f 万元" % (k, b, v_2019))
+    y_2019 = y_2023 * 10
+    print("模型的参数是: k=%f, b=%f, 预估的2023房价为: %f 万元" % (k, b, y_2019))
     
     
