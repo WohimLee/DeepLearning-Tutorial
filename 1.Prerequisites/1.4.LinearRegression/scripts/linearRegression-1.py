@@ -1,7 +1,9 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-
+'''
+只对数据进行了平均处理
+'''
 #梯度下降法
 def train(x:np.ndarray, y:np.ndarray, epochs=1000, lr=1e-2):
 

@@ -1,7 +1,9 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-
+'''
+对数据进行了减均值, 除方差处理
+'''
 #梯度下降法
 def train(x:np.ndarray, y:np.ndarray, epochs=1000, lr=1e-2):
 
@@ -14,10 +16,10 @@ def train(x:np.ndarray, y:np.ndarray, epochs=1000, lr=1e-2):
     for i in range(epochs):
 
         predict = k * x + b
-        loss = np.mean((predict - y)** 2 * 0.5)
+        loss = np.sum((predict - y)** 2 * 0.5)
 
-        delta_k = np.mean((y - predict) * (-x))
-        delta_b = np.mean((y - predict) * (-1))
+        delta_k = np.sum((y - predict) * (-x))
+        delta_b = np.sum((y - predict) * (-1))
 
         k = k - lr * delta_k
         b = b - lr * delta_b

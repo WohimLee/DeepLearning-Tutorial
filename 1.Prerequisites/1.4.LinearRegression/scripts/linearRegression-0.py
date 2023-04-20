@@ -1,7 +1,9 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-
+'''
+没有对数据进行任何处理, 会导致根本无法收敛
+'''
 #梯度下降法
 def train(x:np.ndarray, y:np.ndarray, epochs=1000, lr=1e-2):
 
