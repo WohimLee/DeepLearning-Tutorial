@@ -5,6 +5,8 @@ ML
 0.GetStarted/0.MNIST/dataset
 0.GetStarted/1.CIFAR10/dataset
 0.GetStarted/1.CIFAR10/logs_train
+__pycache__
+.vscode
 
 # weights
 *.pt

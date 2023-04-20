@@ -19,7 +19,7 @@
 &emsp;
 # 1 Loss Function 损失函数
 - Loss function，即损失函数： `单个训练样本` 与 $Target$ 之间的误差；
-- Cost function，即代价函数：`单个batch/整个trainset` 与 $Target$ 之间的误差，可以理解为 Loss function 的 Vector-Matrix Form
+- Cost function，即代价函数：`单个batch/整个trainset` 与 $Target$ 之间的误差，可以理解为 Loss function 的 Vector-Matrix Form，通常会对它求均值得到 Loss function
   
 损失函数（Loss function）是用来度量 model 的预测值 $Predict$ 与真实值 $Target$ 的差异程度的运算函数，它是一个非负实值函数，我们期望损失函数尽可能的小，回想梯度下降，是不是觉得有点相似？
 

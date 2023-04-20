@@ -61,8 +61,5 @@ if __name__ == '__main__':
     file = '../datasets/上海二手房价.csv'
     dataset = Dataset(file)
     dataloader = DataLoader(dataset, batch_size=16, shuffle=True)
-    for features, targets in dataloader:
-        print(features.shape, targets.shape)
-    
-    pass
+    print(dataset.labels[0])
     

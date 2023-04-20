@@ -2,21 +2,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def normalize(x, y):
-    x_mean = np.mean(x)
-    x_std  = np.std(x)
-    y_mean = np.mean(y)
-    y_std  = np.std(y)
-    x = (x - x_mean) / x_std
-    y = (y - y_mean) / y_std
-    return x, y
+def normalize(x: np.ndarray, y:np.ndarray):
+    x = (x - x.mean()) / x.std()
+    y = (y - y.mean()) / y.std()
+    return x, y, x.mean(), x.std(), y.mean(), y.std()
 
 
 if __name__ == '__main__':
     
     x = np.array([2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019], dtype=np.float32)
     y = np.array([1.8, 2.1, 2.3, 2.3, 2.85, 3.0, 3.3, 4.9, 5.45, 5.0], dtype=np.float32)
-    
     
     x_norm, y_norm = normalize(x, y)
     
