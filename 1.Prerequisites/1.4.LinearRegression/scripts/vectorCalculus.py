@@ -12,6 +12,11 @@ b = 0.5
 
 Y_predict = X @ W.T + b
 
-cost = 0.5*np.sum(Y_predict-Y_target)**2
+cost = 0.5*np.sum(Y_predict-Y_target)**2 
+loss = cost / batch_size
 
-# dL_dC = 
+G = (Y_predict-Y_target) / batch_size
+
+d_b = np.sum()
+
+

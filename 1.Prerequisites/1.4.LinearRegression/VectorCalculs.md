@@ -1,6 +1,6 @@
 &emsp;
 # Vector Calculus
-
+>矩阵相乘求导公式
 $$\begin{align}
     C = A @ B，G = \frac{\nabla Loss}{\nabla C}\\
 \end{align}$$
@@ -60,22 +60,36 @@ $$b = b - lr*\nabla b$$
 
 &emsp;
 ## 2.1 Loss Function
-下面这两个都是标量
+$$E = Y^{predict} - Y^{target}$$
+
+>Cost Function（标量）
+$$Cost=\sum\frac{1}{2}(E)^2=\frac{1}{2}e_1^2 + \frac{1}{2}e_2^2$$
+
 $$Cost=\sum\frac{1}{2}(Y^{predict} - Y^{target})^2=\frac{1}{2}(y^{predict}_1-y^{target}_1)^2 + \frac{1}{2}(y^{predict}_2-y^{target}_2)^2$$
 
+>Loss Function（标量）
+- 如果 batch size 过大，那么 $Cost$ 的值就会很大，求导的时候会导致梯度很大，产生 "梯度爆炸" 的问题，无法收敛
+- 且后面对 $w$ 和 $b$ 的求导需要求均值
+- 所以这里将 $Cost$ 除以 batch_size=n，这样 Loss 就会变小，同时后面对 $w$ 和 $b$ 的求导求均值就只需要 sum 就可以了
 $$Loss=\frac{1}{n}Cost$$
-- $n$ 为 batch_size
 
-链式求导
+
+&emsp;
+## 2.2 $G$
+- 链式求导
 
 $$\frac{\partial L}{\partial C} = \frac{1}{n}$$
+&emsp;
 
-$$\frac{\partial L}{\partial Y^{predict}} = \frac{\partial L}{\partial C}\frac{\partial C}{\partial Y^{predict}}=\frac{1}{n}\times2\times \frac{1}{2}Y^{predict}=\frac{1}{n}Y^{predict} = 
-\frac{1}{n}\begin{bmatrix}y^{predict}_1 \\ \\ y^{predict}_2\end{bmatrix}$$
+$$\frac{\partial L}{\partial e_1} = \frac{\partial L}{\partial C}\frac{\partial C}{\partial e_1}=\frac{1}{n}\times2\times \frac{1}{2}e_1 = \frac{1}{n}e_1$$
+&emsp;
+$$\frac{\partial L}{\partial y^{predict}_1} =
+\frac{\partial L}{\partial e_1}\frac{\partial e_1}{\partial y^{predict}_1} = \frac{1}{n}\times e_1\times 1 = 
+\frac{1}{n}\Big(y^{predict}_1 - y^{target}_1\Big)$$
 
-所以
+- 所以
 
-$$G = \frac{\nabla Loss}{\nabla Y^{predict}}=\frac{1}{n}Y^{predict}$$
+$$G = \frac{\nabla L}{\nabla Y^{predict}}=\frac{1}{n}\Big(Y^{predict} - Y^{target}\Big)$$
 
 &emsp;
 ## 2.2 Bias 的梯度
@@ -83,15 +97,27 @@ $$G = \frac{\nabla Loss}{\nabla Y^{predict}}=\frac{1}{n}Y^{predict}$$
 
 $$Y^{predict} = \begin{bmatrix}z_1+b \\ z_2+b\end{bmatrix} = \begin{bmatrix}y^{predict}_1 \\ \\ y^{predict}_2\end{bmatrix}$$
 
+-  对 $b$ 进行求导
+$$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial Y^{predict}}\frac{\partial Y^{predict}}{\partial b}= \begin{bmatrix}
+\frac{\partial L}{\partial y^{predict}_1}\frac{\partial y^{predict}_1} {\partial b} \\ \\
+\frac{\partial L}{\partial y^{predict}_2}\frac{\partial y^{predict}_2} {\partial b}
+\end{bmatrix}$$
 
-$$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial Y^{predict}}\frac{\partial Y^{predict}}{\partial b}=\frac{1}{n}
-    \begin{bmatrix}
-    \frac{\partial L}{\partial y^{predict}_1} \\ \\ \frac{\partial L}{\partial y^{predict}_2}
-    \end{bmatrix}
-= G$$
+- 但是我们只有一个 $b$，所以这个时候我们希望它取个平均值，由于前面我们已经除以 batch size，所以：
+$$np.sum \Big(\begin{bmatrix}
+\frac{\partial L}{\partial y^{predict}_1}\frac{\partial y^{predict}_1} {\partial b} \\ \\
+\frac{\partial L}{\partial y^{predict}_2}\frac{\partial y^{predict}_2} {\partial b}
+\end{bmatrix} \Big) = 
+np.sum \Big(\begin{bmatrix}
+\frac{1}{n}(y^{predict}_1 - y^{target}_1) \\ \\
+\frac{1}{n}(y^{predict}_1 - y^{target}_1)
+\end{bmatrix}\Big) = 
+np.sum
+\Big(\frac{1}{n}(Y^{predict} - Y^{target})\Big)
+= np.sum(G)$$
 
 - 所以
-$$\nabla b = G$$
+$$\nabla b = np.sum(G)$$
 
 &emsp;
 ## 2.3 Weight 的梯度
@@ -100,8 +126,9 @@ $$\frac{\partial L}{\partial Z} =\begin{bmatrix}
 \frac{\partial L}{\partial z_1} \\ \\
 \frac{\partial L}{\partial z_2} 
 \end{bmatrix}= \frac{1}{n}\begin{bmatrix}
-    \frac{\partial L}{\partial y^{predict}_1} \\ \\ \frac{\partial L}{\partial y^{predict}_2}
-\end{bmatrix} = G$$
+(y^{predict}_1 - y^{target}_1) \\ \\
+(y^{predict}_1 - y^{target}_1)
+\end{bmatrix}= G$$
 
 $$Z = \begin{bmatrix}z_1 \\ z_2\end{bmatrix} = \begin{bmatrix}
 x_{11}w_1 + x_{12}w_2 + x_{13}w_3 + x_{14}w_4 \\
@@ -134,8 +161,8 @@ $$\frac{\partial L}{\partial W} =\frac{\partial L}{\partial Z}\frac{\partial Z}{
 $$\begin{bmatrix}
 \frac{\partial L}{\partial z_1}x_{11}+\frac{\partial L}{\partial z_2}x_{21}，
 \frac{\partial L}{\partial z_1}x_{12}+\frac{\partial L}{\partial z_2}x_{22}，
-\frac{\partial L}{\partial z_1}x_{13}+\frac{\partial L}{\partial z_2}x_{21}，
-\frac{\partial L}{\partial z_1}x_{14}+\frac{\partial L}{\partial z_2}x_{21}
+\frac{\partial L}{\partial z_1}x_{13}+\frac{\partial L}{\partial z_2}x_{23}，
+\frac{\partial L}{\partial z_1}x_{14}+\frac{\partial L}{\partial z_2}x_{24}
 \end{bmatrix}$$
 
 - 将上面写成矩阵相乘的形式：
