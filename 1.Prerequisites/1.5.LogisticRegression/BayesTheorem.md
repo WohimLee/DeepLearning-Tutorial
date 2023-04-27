@@ -1,0 +1,122 @@
+&emsp;
+# Bayes Theorem
+- 3Blue1Brown: [【官方双语】贝叶斯定理，使概率论直觉化](https://www.bilibili.com/video/BV1R7411a76r/?spm_id_from=333.337.search-card.all.click&vd_source=ead820d10887c21595d014f264bcbb35)
+- 关键词：先验（概率）、似然、后验（概率）、极大似然
+
+&emsp;
+# 1 引例
+我们借用心理学家 Daniel Khaneman 和 Amos Tversky 的一个例子：
+
+现在共有 100 人，里面有图书管理员和农民两种职业
+- 图书管理员: 10 人
+- 农民: 90 人
+
+现在我们从 100 个人叫出一个叫 Steve 的人，他有以下特征：
+- 性格温顺
+- 做事井井有条
+- 问他是哪种职业的可能性最大
+
+&emsp;
+# 2 贝叶斯公式的引出
+## 2.1 最终求解的问题
+Daniel Khaneman和Amos Tversky的例子其实是一个条件概率问题，我们定一下条件和职业：
+>Evidence
+- 给定一个条件 Evidence: $E_{性格温顺、做事井井有条}$
+
+>Event（Hypothesis）
+- Steve 的职业
+  - Librarian: $L_{Steve\ 是图书管理员}$ 
+  - Farmer: $F_{Steve\ 是农民}$ 
+
+>Probability（Prior）
+- $P(L)$: Steve 是图书管理员的概率，或者说图书管理员占总人数的比例
+- $P(F)$: Steve 是农民的概率，或者说农民占总人数的比例
+
+
+>Conditional Probability（Hypothesis given the evidence）
+- 那么问题就可以用条件来表述了，我们知道了 Steve 这个人的条件：$E =$ 性格温顺、做事井井有条：
+  - $P(L|E)$: $E$ 条件下，他是图书管理员的概率
+  - $P(F|E)$: $E$ 条件下，他是农民的概率
+
+上面两个 Conditional Probability 的求解过程都可以推导出贝叶斯公式，我们以求 $P(L|E)$ 为例：
+- 我们认为 Steve 性格温顺、做事井井有条，他应该是个图书管理员，但概率是多少，我们下面要算一下
+
+&emsp;
+## 2.2 统一表述
+>已知变量
+- 总人数：100 人
+- 图书管理员人数：$N_L=10$，占总人数的比例 $P(L)=\frac{10}{100}=\frac{1}{10}$，所以有等式：
+$$N_L = 100\times P(L) = 100 \times \frac{1}{10} = 10$$
+- 农民的人数：$N_F=90$，占总人数的比例 $P(F)=\frac{90}{100}=\frac{9}{10}$，所以有等式：
+$$N_F = 100\times P(L) = 100 \times \frac{9}{10} = 90$$
+
+<div align=center>
+    <image src='imgs/sum.png' width=500>
+</div>
+
+&emsp;
+>其它变量
+- 图书管理员中，$E_{性格温顺、做事井井有条}$ 有 4 人，那么这 4 人的比例记为：$P(E|L)=\frac{4}{10}=\frac{2}{5}$，所以有等式：
+$$N_L \times P(E|L) = 100 \times P(L) \times P(E|L) = 4$$
+
+
+<div align=center>
+    <image src='imgs/sum-2.png' width=500>
+</div>
+
+&emsp;
+- 农民中，$E_{性格温顺、做事井井有条}$ 有 9 人，那么这 9 人的比例记为：$P(E|F)=\frac{9}{90}=\frac{1}{10}$，所以有等式：
+$$N_F \times P(E|F) = 100 \times P(F) \times P(E|F) = 9$$
+
+<div align=center>
+    <image src='imgs/sum-3.png' width=500>
+</div>
+
+
+&emsp;
+## 2.3 求解 $P(L|E)$
+$$P(L|E)=\frac{满足条件 E 的图书管理员人数}{满足条件 E 的总人数}$$
+
+<div align=center>
+    <image src='imgs/sum-4.png' width=400>
+</div>
+
+
+$$P(L|E) = \frac{100 \times P(L)P(E|L)}{100 \times P(L)P(E|L) + 100 \times P(F)P(E|F)}=\frac{P(L)P(E|L)}{P(E)}$$
+
+&emsp;
+## 2.4 贝叶斯公式
+
+上面求解的最终结果，就是贝叶斯公式：
+$$P(L|E) = \frac{P(L)P(E|L)}{P(E)}$$
+
+同样也有：
+$$P(F|E) = \frac{P(F)P(E|F)}{P(E)}$$
+
+通用写法：
+$$P(H|E) = \frac{P(H)P(E|H)}{P(E)} = \frac{P(F)P(E|H)}{P(H)P(E|H) + P( \backsim H)P(E|\backsim H) }$$
+
+<div align=center>
+    <image src='imgs/bayes.png' width=600>
+</div>
+
+
+&emsp;
+>先验/先验概率（Prior）
+- $P(H)$
+  - $P(L)$: Steve 是图书管理员的概率，或者说图书管理员占总人数的比例
+  - $P(F)$: Steve 是农民的概率，或者说农民占总人数的比例
+
+>似然（Likelihood）
+- $P(E|H)$
+  - $P(E|L)$: 图书管理员中满足条件 $E$ 的概率/比例
+  - $P(E|F)$: 农民中满足条件 $E$ 的概率/比例
+
+>后验概率（Posterior）
+- $P(H|E)$
+  - $P(L|E)$: $E$ 条件下，他是图书管理员的概率
+  - $P(F|E)$: $E$ 条件下，他是农民的概率
+  
+
+
+
