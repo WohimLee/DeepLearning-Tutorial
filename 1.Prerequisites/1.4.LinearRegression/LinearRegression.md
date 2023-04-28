@@ -10,18 +10,23 @@
 
 $$y = x\times w + b$$
 
-下面将以房价预测的例子进行讲解
+
 
 &emsp;
+
+下面将以房价预测的例子进行讲解
+
 # 1 One-Dimension
 假设影响房价的因素只有一个：年份，这里有一份数据，是 2010-2019 年的房价
 ```py
 y_target = np.array([1.8, 2.1, 2.3, 2.3, 2.85, 3.0, 3.3, 4.9, 5.45, 5.0]) # 单位: 万元/平方
 ```
 
-我们将数据可视化出来，并且希望能够找到一条直线，尽量的拟合这些数据：
+我们将数据可视化出来，并且希望能通过一个式子 $f(x) = y$ 来表达这些数据，$x$ 表示年份， $y$ 表示价格，在线性回归中采用的是下面这个式子：
 $$y^{predict} = x\times w + b$$
-其中 $w$ 和 $b$ 都是需要学习/优化（Optimize）的参数，我们初始可以随机给它们一个值
+- $w$: 权重。这个因素 $x$ 的权重，也就是说房价在什么程度上影响房价
+- $b$: 噪声，误差。
+- $w$ 和 $b$ 都是需要学习/优化（Optimize）的参数，我们初始可以随机给它们一个值
 
 <table><tr>
     <td><img src="imgs/houseprice-raw.png" border=0></td>
@@ -63,3 +68,26 @@ $$\begin{align}
 \end{align}$$
 
 
+&emsp;
+# 3 Boston House Price
+
+## 3.1 Dataset
+Each record in the database describes a Boston suburb or town. The data was drawn from the Boston Standard Metropolitan Statistical Area (SMSA) in 1970. The attributes are deﬁned as follows (taken from the UCI Machine Learning Repository1): CRIM: per capita crime rate by town
+
+Input features in order:
+1) CRIM: per capita crime rate by town
+2) ZN: proportion of residential land zoned for lots over 25,000 sq.ft.
+3) INDUS: proportion of non-retail business acres per town
+4) CHAS: Charles River dummy variable (1 if tract bounds river; 0 otherwise)
+5) NOX: nitric oxides concentration (parts per 10 million) [parts/10M]
+6) RM: average number of rooms per dwelling
+7) AGE: proportion of owner-occupied units built prior to 1940
+8) DIS: weighted distances to five Boston employment centres
+9) RAD: index of accessibility to radial highways
+10) TAX: full-value property-tax rate per $10,000 [$/10k]
+11) PTRATIO: pupil-teacher ratio by town
+12) B: The result of the equation $B=1000(Bk - 0.63)^2$ where Bk is the proportion of blacks by town
+13) LSTAT: % lower status of the population
+
+Output variable:
+1) MEDV: Median value of owner-occupied homes in \$1000's [k$]

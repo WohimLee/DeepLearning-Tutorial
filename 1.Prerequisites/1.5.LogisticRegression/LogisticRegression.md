@@ -8,9 +8,30 @@
 >Notice
 - 虽然逻辑回归名称带 "回归"，但它是用来解决分类问题的，也就是说它的输出是离散的
 
-以下使用
+>sigmoid 函数
+$$y = \frac{1}{1+e^{-x}}$$
+<div align=center>
+    <image src='imgs/sigmoid.png'width=300>
+</div>
+
+
 &emsp;
+
+以下使用肿瘤预测的例子给大家说明
 # 1 One-Dimension
+假设医生判断肿瘤恶性（malignant）和良性（benign）的依据只有一个：肿瘤大小，同样考虑这个因素的影响权重和一些数据噪声，则有：
+$$y = x\times w + b$$
+
+如果很简单粗暴的定一个标准：小于 5cm 为良性，大于 5cm 为恶性，考虑两个问题：
+- 这样是不是不太合理或者说不严谨，如果能把它转换成概率的表达方式是不是会更加好一点？
+- 根据这个条件写出来的函数是阶跃函数，这样的函数可以利用梯度下降来优化吗？
+$$f(x) = \begin{cases}0，x<5 \\ 1，x\geq 5\end{cases}$$
+
+解决这个问题很简单，将 $y = x\times w + b$ 的输出，接一个 sigmoid 函数，既转换成了概率值，又能够求导优化：
+<table><tr>
+    <td><img src="imgs/tumor-raw.png" border=0></td>
+    <td><img src="imgs/tumor-sigmoid.png" border=0></td>
+</tr></table>
 
 
 
@@ -20,32 +41,37 @@
 
 
 &emsp;
-# 1 人话版
+# 3 Breast Cancer Wisconsin
+## 3.1 Dataset
+Breast Cancer Wisconsin (Diagnostic) Data Set Attribute Information:
+
+- 1\) ID number 2) Diagnosis (M = malignant, B = benign)
+- 3-32)Ten real-valued features are computed for each cell nucleus:
+    - a) radius (mean of distances from center to points on the perimeter) 
+    - b) texture (standard deviation of gray-scale values)
+    - c) perimeter
+    - d) area
+    - e) smoothness (local variation in radius lengths)
+    - f) compactness (perimeter^2 / area - 1.0)
+    - g) concavity (severity of concave portions of the contour)
+    - h) concave points (number of concave portions of the contour)
+    - i) symmetry
+    - j) fractal dimension ("coastline approximation" - 1)
+
+The mean, standard error and "worst" or largest (mean of the three
+largest values) of these features were computed for each image,
+resulting in 30 features. For instance, field 3 is Mean Radius, field
+
+13 is Radius SE, field 23 is Worst Radius.
+
+All feature values are recoded with four significant digits.
+
+Missing attribute values: none
+
+Class distribution: 357 benign, 212 malignant
 
 
-&emsp;
-## 1.2 线性回归转分类
-思考一个问题，对于左图，我们能不能将它们分为两类？
-- $y = xw + b$
-<table><tr>
-    <td><img src="imgs/classify-raw.png" border=0></td>
-    <td><img src="imgs/classify-done.png" border=0></td>
-</tr></table>
 
 
 
-&emsp;
-## 1.3 sigmoid 函数
 
-
-&emsp;
-# 2 做作版
-Logistic 分布是一种连续型的概率分布
-- $\mu$: 位置参数
-- $\gamma$: 形状参数
->概率分布函数
-$$F(x) = P(X \leq x) = \frac{1}{1+e^{-(x-\mu)/\gamma}}$$
-
->概率密度函数
-
-$$f(x) = F'(X \leq x)= \frac{e^{-(x-\mu)/ \gamma}}{\gamma(1+e^{-(x-\mu)/ \gamma})^2}$$

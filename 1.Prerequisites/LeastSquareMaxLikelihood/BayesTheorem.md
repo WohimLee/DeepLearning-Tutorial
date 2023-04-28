@@ -20,7 +20,7 @@
 # 2 贝叶斯公式的引出
 ## 2.1 最终求解的问题
 Daniel Khaneman和Amos Tversky的例子其实是一个条件概率问题，我们定一下条件和职业：
->Evidence
+>Evidence（因）
 - 给定一个条件 Evidence: $E_{性格温顺、做事井井有条}$
 
 >Event（Hypothesis）
