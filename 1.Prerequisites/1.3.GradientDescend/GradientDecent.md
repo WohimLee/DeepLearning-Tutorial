@@ -33,7 +33,7 @@ $$x_{new} = x - lr*gradient$$
 
 看它的几何意义：
 <div align=center>
-    <image src="imgs/gradient-descent.png" width=500>
+    <image src="imgs/gradient-descent.png" width=800>
 </div>
 
 &emsp;

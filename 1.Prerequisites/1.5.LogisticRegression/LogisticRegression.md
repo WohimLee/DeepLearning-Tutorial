@@ -14,7 +14,6 @@ $$y = \frac{1}{1+e^{-x}}$$
     <image src='imgs/sigmoid.png'width=300>
 </div>
 
-
 &emsp;
 
 以下使用肿瘤预测的例子给大家说明
@@ -34,6 +33,15 @@ $$f(x) = \begin{cases}0，x<5 \\ 1，x\geq 5\end{cases}$$
 </tr></table>
 
 
+>Loss 函数
+
+$$L = -\frac{1}{n}(
+    \sum\limits^{n}_{i=1}\Bigg(
+        y^{target}\cdot lny^{predict} + \Big(1-y^{target}\cdot ln (1-y^{predict})\Big)
+        \Bigg))$$
+
+>Loss 函数导数
+$$dL = \frac{1}{n}(y^{predict} - y^{target})$$
 
 
 &emsp;
