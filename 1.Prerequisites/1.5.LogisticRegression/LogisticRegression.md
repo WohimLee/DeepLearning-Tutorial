@@ -1,6 +1,5 @@
 &emsp; 
 # Logistic Regression 逻辑回归
-- 知乎：[【机器学习】逻辑回归（非常详细）](https://zhuanlan.zhihu.com/p/74874291)
 
 >Logistic 回归的本质
 - 人话版：线性回归 + sigmoid 函数
