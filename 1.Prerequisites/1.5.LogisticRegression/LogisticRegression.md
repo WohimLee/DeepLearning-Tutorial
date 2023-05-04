@@ -36,7 +36,7 @@ $$f(x) = \begin{cases}0，x<5 \\ 1，x\geq 5\end{cases}$$
 
 $$L = -\frac{1}{n}(
     \sum\limits^{n}_{i=1}\Bigg(
-        y^{target}\cdot lny^{predict} + \Big(1-y^{target}\cdot ln (1-y^{predict})\Big)
+        y^{target}\cdot lny^{predict} + (1-y^{target})\cdot ln (1-y^{predict})
         \Bigg))$$
 
 >Loss 函数导数
