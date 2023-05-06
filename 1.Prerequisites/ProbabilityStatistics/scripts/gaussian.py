@@ -40,8 +40,8 @@ fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 ax1 = axes[0]
 ax1.set(title='Gaussian PDF')
 ax1.spines[['left', 'bottom']].set_position('zero')
-ax1.spines['right'].set_visible(False)
-ax1.spines['top'].set_visible(False)
+ax1.spines[['right', 'top']].set_visible(False)
+
 
 y1 = gaussianPDF(x)
 ax1.plot(x, y1)
@@ -49,8 +49,8 @@ ax1.plot(x, y1)
 ax2 = axes[1]
 ax2.set(title='Gaussian CDF')
 ax2.spines[['left', 'bottom']].set_position('zero')
-ax2.spines['right'].set_visible(False)
-ax2.spines['top'].set_visible(False)
+ax2.spines[['right', 'top']].set_visible(False)
+
 
 y2 = CDF(y1)
 ax2.plot(x, y2)
