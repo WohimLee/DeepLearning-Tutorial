@@ -11,7 +11,7 @@ from torch import nn
 from tqdm import tqdm 
 from copy import deepcopy
 from torchmetrics import Accuracy
-from torchvision import transforms 
+from torchvision import transforms
 
 
 def printlog(info):

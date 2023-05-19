@@ -1,0 +1,9 @@
+
+
+path: /Users/azen/Desktop/myAir/Work/Workspace/Others/Dataset/VOC2007/VOCdevkit/VOC2007
+train: 
+- images/train2007
+
+
+names:
+  0: 

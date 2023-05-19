@@ -25,10 +25,9 @@ for i, mean, std in zip(range(4), means, stds):
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
         
-        ax.spines['left'].set_position('zero')  # move left spine to zero
-        ax.spines['bottom'].set_position('zero')  # move bottom spine to zero
-        ax.spines['right'].set_visible(False)  # hide right spine
-        ax.spines['top'].set_visible(False)  # hide top spine
+        ax.spines[['left', 'top']].set_position('zero')  # move left spine to zero
+        ax.spines[['right', 'bottom']].set_visible(False)  # hide right spine
+
 
         # plot a simple function
         x = np.linspace(-10, 10, 200)
@@ -43,6 +42,6 @@ fig.tight_layout()
 
 
 # display the plot
-# plt.show()
-fig.savefig('../imgs/normalDist.png')
+plt.show()
+# fig.savefig('../imgs/normalDist.png')
 

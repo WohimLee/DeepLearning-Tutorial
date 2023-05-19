@@ -23,11 +23,8 @@ def CDF(pdf):
     norm_const = np.trapz(pdf)
     pdf_normalized = pdf / norm_const
 
-    # Sort the normalized PDF in ascending order
-    pdf_sorted = np.sort(pdf_normalized)
-
     # Calculate the cumulative sum of the sorted PDF
-    cdf = np.cumsum(pdf_sorted)
+    cdf = np.cumsum(pdf_normalized)
 
     # # Insert a zero at the beginning of the CDF
     # cdf = np.insert(cdf, 0, 0)
@@ -39,20 +36,20 @@ fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 
 ax1 = axes[0]
 ax1.set(title='Gaussian PDF')
-ax1.spines[['left', 'bottom']].set_position('zero')
-ax1.spines[['right', 'top']].set_visible(False)
-
+ax1.spines[['left', 'top']].set_position('zero')
+ax1.spines[['right', 'bottom']].set_visible(False)
 
 y1 = gaussianPDF(x)
 ax1.plot(x, y1)
 
+
 ax2 = axes[1]
 ax2.set(title='Gaussian CDF')
-ax2.spines[['left', 'bottom']].set_position('zero')
-ax2.spines[['right', 'top']].set_visible(False)
-
+ax2.spines[['left', 'top']].set_position('zero')
+ax2.spines[['right', 'bottom']].set_visible(False)
 
 y2 = CDF(y1)
+print()
 ax2.plot(x, y2)
 
 fig.suptitle('Gaussian Distribution')
