@@ -9,7 +9,7 @@
 &emsp;
 # 1 Intro
 我们看一个熟悉的普通的方程：
-$$y = 3x^2 + 6x + 5 = 3(x+1)^2 + 4$$
+$$y = 3x^2 + 6x + 5 = 3(x+1)^2 + 2$$
 
 <div align=center>
     <image src="imgs/function.png" width=400/>
