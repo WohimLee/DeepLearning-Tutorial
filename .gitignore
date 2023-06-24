@@ -16,7 +16,6 @@ __pycache__
 # file
 *.gz
 *.zip
-*.ai
 test.py
 .DS_Store
 

@@ -24,7 +24,7 @@
 
 
 $$\begin{align}
-    Y = X @ W^T，G = \frac{\nabla Loss}{\nabla Y}\\
+    Y = X @ W^T + B，G = \frac{\nabla Loss}{\nabla Y}\\
 \end{align}$$
 
 $$\nabla X = G @ W$$ 
