@@ -3,8 +3,6 @@ import struct
 import numpy as np
 
 
-
-
 def load_labels(file):
     with open(file, "rb") as f:
         data = f.read()
