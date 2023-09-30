@@ -37,11 +37,11 @@ class DataLoaderIterator:
 class DataLoader:
     
     # shuffle 打乱
-    def __init__(self, dataset, batch_size, shuffle):
+    def __init__(self, dataset, batch_size, shuffle=True):
         self.dataset = dataset
         self.shuffle = shuffle
-        self.count_data = len(dataset)
         self.batch_size = batch_size
+        self.count_data = len(dataset)
         
     def __iter__(self):
         return DataLoaderIterator(self)

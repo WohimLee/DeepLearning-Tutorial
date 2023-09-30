@@ -20,5 +20,4 @@ if __name__ == '__main__':
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=128, shuffle=True,  num_workers=2)
     testloader  = torch.utils.data.DataLoader(validset, batch_size=128, shuffle=False, num_workers=2)
     
-
     

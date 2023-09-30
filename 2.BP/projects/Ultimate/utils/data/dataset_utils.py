@@ -31,8 +31,7 @@ def one_hot(labels, classes, label_smoothing=0):
     n = len(labels)
     eoff = label_smoothing / classes
     output = np.ones((n, classes), dtype=np.float32) * eoff
-    for row, label in enumerate(labels):
-        output[row, label] = 1 - label_smoothing + eoff
+    output[np.arange(n), labels] = 1 - label_smoothing + eoff
     return output
 
 
