@@ -12,21 +12,7 @@ from optim import Adam
 from utils import load_labels, load_images, one_hot, estimate_val
 
 
-class Model(Module):
-    def __init__(self, num_feature, num_hidden, num_classes):
-        super().__init__("Model")
-        self.backbone = ModuleList(
-            Linear(num_feature, num_hidden),
-            ReLU(),
-            Dropout(),
-            Linear(num_hidden, num_classes)
-        )
-        
-    def forward(self, x):
-        return self.backbone(x)
-    
-    def backward(self, G):
-        return self.backbone.backward(G)
+
     
     
 def train(epochs = 10, lr=1e-2, batch_size = 64, classes = 10):
