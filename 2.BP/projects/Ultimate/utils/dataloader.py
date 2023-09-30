@@ -45,3 +45,7 @@ class DataLoader:
         
     def __iter__(self):
         return DataLoaderIterator(self)
+
+
+if __name__ == '__main__':
+    pass
