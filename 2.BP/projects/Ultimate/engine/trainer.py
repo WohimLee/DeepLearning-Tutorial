@@ -5,11 +5,10 @@
 import numpy as np
 import os.path as osp
 
-from dataloader import Dataset, DataLoader
 from nn import Module, ModuleList, Linear, ReLU, Dropout
 from loss import SigmoidCrossEntropy
 from optim import Adam
-from utils import load_labels, load_images, one_hot, estimate_val
+
 
 
 
@@ -70,17 +69,7 @@ def train(epochs = 10, lr=1e-2, batch_size = 64, classes = 10):
     
 
 if __name__ == '__main__':
-    root = "/Users/azen/Desktop/myAir/Work/Workspace/Others/Dataset/MNIST"
-    test_labels = load_labels(osp.join(root, "t10k-labels-idx1-ubyte"))   #  10000,
-    test_images = load_images(osp.join(root, "t10k-images-idx3-ubyte"))   #  10000, 784
-    test_images = (test_images - np.mean(test_images)) / np.var(test_images)
-
-
-    train_labels = load_labels(osp.join(root, "train-labels-idx1-ubyte")) # 60000,
-    train_images = load_images(osp.join(root, "train-images-idx3-ubyte")) # 60000, 784
-    train_images = (train_images - np.mean(train_images)) / np.var(train_images)
-    
-    train()
+    pass
 
 
 
