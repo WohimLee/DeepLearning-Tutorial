@@ -25,7 +25,9 @@ def load_images(file):
         return None
     
     image_data = np.frombuffer(data[16:], dtype=np.uint8).reshape(num_samples, -1)
-    return image_data.reshape(-1, image_height, image_width)
+    # return image_data.reshape(-1, image_height, image_width)
+    return image_data
+
 
 def one_hot(labels, classes=10, label_smoothing=0):
     n = len(labels)

@@ -60,5 +60,5 @@
 &emsp;
 <div align=center>
     <img src="./imgs/QRcode.png" width=200>
-    <h4>If u wanna by me a cup of coffee, I'll be appreciated.</h>
+    <h4>If u wanna by me a cup of coffee.</h>
 </div>
