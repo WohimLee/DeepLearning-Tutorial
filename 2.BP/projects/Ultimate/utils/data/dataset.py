@@ -3,7 +3,7 @@ import yaml
 import numpy as np
 import os.path as osp
 
-from .dataset_utils import load_labels, load_images
+from .dataset_utils import load_labels, load_images, one_hot
 
 class Dataset:
     def __init__(self, config='config/MNIST.yaml', train=True):
@@ -22,13 +22,13 @@ class Dataset:
             labels_path = osp.join(data['root'], data['test']['labels'])
             images_path = osp.join(data['root'], data['test']['images'])
             
-        self.labels = load_labels(labels_path)
+        self.labels = one_hot(load_labels(labels_path))
         self.images = load_images(images_path)
     
     
     # 获取他的一个item，  dataset = Dataset(),   dataset[index]
     def __getitem__(self, index):
-        return self.images[index], self.labels[index]
+        return self.labels[index], self.images[index] 
     
     # 获取数据集的长度，个数
     def __len__(self):

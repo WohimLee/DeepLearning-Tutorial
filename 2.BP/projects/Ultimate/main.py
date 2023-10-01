@@ -14,6 +14,12 @@ if __name__ == '__main__':
     trainset = Dataset(config=config_file, train=True)
     testset  = Dataset(config=config_file, train=False)
     
-    trainloader = DataLoader()
+    trainloader = DataLoader(trainset, batch_size=32, shuffle=True)
+    testloader  = DataLoader(trainset, batch_size=32, shuffle=True)
+
+    for num, (labels, images) in enumerate(testloader):
+        print(num, labels.shape, images.shape)
+
     
+
     pass
