@@ -1,8 +1,7 @@
 
 import numpy as np
 
-from utils.nn import Module
-
+from .nn import Module
 
 class SigmoidCrossEntropy(Module):
     def __init__(self, params, weight_decay=1e-5):

@@ -1,7 +1,7 @@
 
 import numpy as np
 
-    
+
 class DataLoaderIterator:
     def __init__(self, dataloader):
         self.dataloader = dataloader

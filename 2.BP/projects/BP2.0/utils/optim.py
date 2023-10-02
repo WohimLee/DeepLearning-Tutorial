@@ -2,7 +2,6 @@
 import numpy as np
 
 
-    
 class Optimizer:
     def __init__(self, name, model, lr):
         self.name = name
@@ -62,4 +61,4 @@ class Adam(Optimizer):
             mt_ = param.m / (1 - self.beta1 ** self.t)
             vt_ = param.v / (1 - self.beta2 ** self.t)
             param.value -= self.lr * mt_ / (np.sqrt(vt_) + eps) + self.l2_regularization * param.value
-            
+    

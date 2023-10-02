@@ -24,18 +24,18 @@ def load_images(file):
         return None
     
     image_data = np.frombuffer(data[16:], dtype=np.uint8).reshape(num_samples, -1)
+    # return image_data.reshape(-1, image_height, image_width)
     return image_data
 
-def one_hot(labels, classes, label_smoothing=0):
+
+def one_hot(labels, classes=10, label_smoothing=0):
     n = len(labels)
     eoff = label_smoothing / classes
     output = np.ones((n, classes), dtype=np.float32) * eoff
-    for row, label in enumerate(labels):
-        output[row, label] = 1 - label_smoothing + eoff
+    output[np.arange(n), labels] = 1 - label_smoothing + eoff
     return output
 
 
-    
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
     

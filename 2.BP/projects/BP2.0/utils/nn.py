@@ -1,7 +1,6 @@
 
 import numpy as np
 
-
 class Module:
     def __init__(self, name):
         self.name = name
@@ -185,4 +184,4 @@ class ModuleList(Module):
         for i in range(len(self.ms)-1, -1, -1):
             G = self.ms[i].backward(G)
         return G
-   
+    
