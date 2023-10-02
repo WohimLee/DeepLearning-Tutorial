@@ -1,5 +1,5 @@
 
-
+from nn import Module, ModuleList, Linear, ReLU, Dropout
 
 class Model(Module):
     def __init__(self, num_feature, num_hidden, num_classes):

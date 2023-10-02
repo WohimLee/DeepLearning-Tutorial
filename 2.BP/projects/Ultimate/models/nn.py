@@ -111,7 +111,7 @@ class ReLU(Module):
         super().__init__("ReLU")
         self.inplace = inplace
         
-        
+    # 亿点点
     def forward(self, x):
         self.negative_position = x < 0
         if not self.inplace:
@@ -127,6 +127,15 @@ class ReLU(Module):
         G[self.negative_position] = 0
         return G
 
+def Sigmoid(x):
+    p0 = x < 0
+    p1 = ~p0
+    x = x.copy()
+
+    # 如果x的类型是整数，那么会造成丢失精度
+    x[p0] = np.exp(x[p0]) / (1 + np.exp(x[p0]))
+    x[p1] = 1 / (1 + np.exp(-x[p1]))
+    return x
 
 class SWish(Module):
     def __init__(self):
@@ -134,21 +143,11 @@ class SWish(Module):
         
     def forward(self, x):
         self.x_save = x.copy()
-        self.sx = self.sigmoid(x)
+        self.sx = Sigmoid(x)
         return x * self.sx
     
     def backward(self, G):
         return G * (self.sx + self.x_save * self.sx * (1 - self.sx))
-    
-    def sigmoid(x):
-        p0 = x < 0
-        p1 = ~p0
-        x = x.copy()
-
-        # 如果x的类型是整数，那么会造成丢失精度
-        x[p0] = np.exp(x[p0]) / (1 + np.exp(x[p0]))
-        x[p1] = 1 / (1 + np.exp(-x[p1]))
-        return x
     
 class Dropout(Module):
     def __init__(self, prob_keep=0.5, inplace=True):

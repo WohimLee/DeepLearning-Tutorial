@@ -5,14 +5,13 @@
 import numpy as np
 import os.path as osp
 
-from nn import Module, ModuleList, Linear, ReLU, Dropout
-from loss import SigmoidCrossEntropy
-from optim import Adam
+from ..data import Dataset, DataLoader
+from ..models.nn import Module, ModuleList, Linear, ReLU, Dropout
+from ..models.loss import SigmoidCrossEntropy
+from ..models.optim import Adam
+from ..models.model import Model
 
 
-
-
-    
     
 def train(epochs = 10, lr=1e-2, batch_size = 64, classes = 10):
     np.random.seed(3)
@@ -32,7 +31,7 @@ def train(epochs = 10, lr=1e-2, batch_size = 64, classes = 10):
         18: 1e-5
     }
 
-    # 开始进行epoch循环，总数是epochs次
+    # 开始进行 epoch 循环，总数是 epochs 次
     for epoch in range(epochs):
         
         if epoch in lr_schedule:
@@ -53,10 +52,10 @@ def train(epochs = 10, lr=1e-2, batch_size = 64, classes = 10):
             model.backward(G)
             optim.step()   # 应用梯度，更新参数
             iters += 1
-            if index % 200 == 0:
-                print("Epoch: {} / {}, Iter: {}, Loss: {:.3f}, LR: {:g}".format(
-                    epoch, epochs, iters, loss, lr
-                ))
+        if epoch % 200 == 0:
+            print("Epoch: {} / {}, Iter: {}, Loss: {:.3f}, LR: {:g}".format(
+                epoch, epochs, iters, loss, lr
+            ))
         
         model.eval()
         val_accuracy, val_loss = estimate_val(model(test_images), test_labels, classes, loss_func)
