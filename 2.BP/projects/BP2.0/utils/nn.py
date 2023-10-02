@@ -91,9 +91,9 @@ class Linear(Module):
         self.x_save = x.copy()
         return x @ self.weights.value + self.bias.value
     
-    #AB = C  G
-    #dB = A.T @ G
-    #dA = G @ B.T
+    # XW.T = C,  G
+    # dW.T = G @ W
+    # dX = G.T @ W
     def backward(self, G):
         self.weights.delta += self.x_save.T @ G
         self.bias.delta += np.sum(G, 0)  #值复制
