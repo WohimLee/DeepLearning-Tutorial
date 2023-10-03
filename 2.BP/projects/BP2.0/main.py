@@ -61,8 +61,8 @@ for epoch in range(epochs):
         optim.step()   # 应用梯度，更新参数
         iters += 1
         if iters % 200 == 0:
-            print(f"Iter {iters}, {epoch} / {epochs}, Loss {loss:.3f}, LR {lr:g}")
+            print(f"Epoch: {epoch} / {epochs}, Iters: {iters}, Loss: {loss:.3f}, LR: {lr:g}")
     
     model.eval()
     val_accuracy, val_loss = estimate_val(model(testset.images), testset.labels, classes, loss_func)
-    print(f"Val set, Accuracy: {val_accuracy:.6f}, Loss: {val_loss:.3f}")
+    print(f"Val set, Accuracy: {val_accuracy*100:.3f}%, Loss: {val_loss:.5f}")
