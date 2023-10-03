@@ -40,11 +40,11 @@ def sigmoid(x):
     return 1 / (1 + np.exp(-x))
     
 def estimate_val(predict, gt_labels, classes, loss_func):
-    plabel = predict.argmax(1)
-    positive = plabel == gt_labels
+    positive = (predict.argmax(1) == gt_labels.argmax(1))
+    # positive = predict_label == gt_labels
     total_images = predict.shape[0]
     accuracy = sum(positive) / total_images
-    return accuracy, loss_func(predict, one_hot(gt_labels, classes))
+    return accuracy, loss_func(predict, gt_labels)
 
 def lr_schedule_cosine(lr_min, lr_max, per_epochs):
     def compute(epoch):

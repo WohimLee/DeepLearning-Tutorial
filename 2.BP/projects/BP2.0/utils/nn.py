@@ -1,6 +1,8 @@
 
 import numpy as np
 
+from .parameter import Parameter
+
 class Module:
     def __init__(self, name):
         self.name = name
@@ -67,44 +69,37 @@ class GaussInitializer(Initializer):
     def apply(self, value):
         value[...] = np.random.normal(self.mu, self.sigma, value.shape)
     
-class Parameter:
-    def __init__(self, value):
-        self.value = value
-        self.delta = np.zeros(value.shape)
-        
-    def zero_grad(self):
-        self.delta[...] = 0
+
         
 class Linear(Module):
     def __init__(self, input_feature, output_feature):
         super().__init__("Linear")
         self.input_feature = input_feature
         self.output_feature = output_feature
-        self.weights = Parameter(np.zeros((input_feature, output_feature)))
-        self.bias = Parameter(np.zeros((1, output_feature)))
+        self.weights = Parameter(np.zeros((output_feature, input_feature)))
+        self.bias = Parameter(np.zeros(output_feature))
         
         # 权重初始化 
         initer = GaussInitializer(0, np.sqrt(2 / input_feature))  # np.sqrt(2 / input_feature)
-        initer.apply(self.weights.value)
+        initer.apply(self.weights.data)
         
     def forward(self, x):
         self.x_save = x.copy()
-        return x @ self.weights.value + self.bias.value
+        return x @ self.weights.data.T + self.bias.data
     
     # XW.T = C,  G
     # dW.T = G @ W
     # dX = G.T @ W
     def backward(self, G):
-        self.weights.delta += self.x_save.T @ G
-        self.bias.delta += np.sum(G, 0)  #值复制
-        return G @ self.weights.value.T
+        self.weights.grad += G.T @ self.x_save
+        self.bias.grad += np.sum(G, 0)  
+        return G @ self.weights.data
     
 class ReLU(Module):
     def __init__(self, inplace=True):
         super().__init__("ReLU")
         self.inplace = inplace
         
-    # 亿点点
     def forward(self, x):
         self.negative_position = x < 0
         if not self.inplace:

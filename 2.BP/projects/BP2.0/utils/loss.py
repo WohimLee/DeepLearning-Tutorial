@@ -2,6 +2,7 @@
 import numpy as np
 
 from .nn import Module
+from .parameter import Parameter
 
 class SigmoidCrossEntropy(Module):
     def __init__(self, params, weight_decay=1e-5):
@@ -21,13 +22,13 @@ class SigmoidCrossEntropy(Module):
     def decay_loss(self):
         loss = 0
         for p in self.params:
-            loss += np.sqrt(np.sum(p.value ** 2)) / (2 * p.value.size) * self.weight_decay
+            loss += np.sqrt(np.sum(p.data ** 2)) / (2 * p.data.size) * self.weight_decay
         return loss
     
     def decay_backward(self):
         for p in self.params:
             eps = 1e-8
-            p.delta += 1 / (2 * np.sqrt(np.sum(p.value ** 2)) + eps) / (2 * p.value.size) * self.weight_decay * 2 * p.value
+            p.grad += 1 / (2 * np.sqrt(np.sum(p.data ** 2)) + eps) / (2 * p.data.size) * self.weight_decay * 2 * p.data
 
     def forward(self, x, label_onehot):
         eps = 1e-6

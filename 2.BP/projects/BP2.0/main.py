@@ -1,10 +1,6 @@
 import numpy as np
-import random
-import matplotlib.pyplot as plt
-import pandas as pd
-import math
 
-from utils.utils import load_labels, load_images, one_hot, estimate_val
+from utils.utils import estimate_val
 from utils.dataset import Dataset
 from utils.dataloader import DataLoader
 from utils.loss import SigmoidCrossEntropy
@@ -12,16 +8,6 @@ from utils.optim import Adam
 from utils.model import Model
 
 
-# val_labels = load_labels("/home/nerf/datav/Dataset/MNIST/raw/t10k-labels-idx1-ubyte")   #  10000,
-# val_images = load_images("/home/nerf/datav/Dataset/MNIST/raw/t10k-images-idx3-ubyte")   #  10000, 784
-# val_images = (val_images - np.mean(val_images)) / np.var(val_images)
-# #val_images = val_images / 255 - 0.5
-
-# train_labels = load_labels("/home/nerf/datav/Dataset/MNIST/raw/train-labels-idx1-ubyte") # 60000,
-# train_images = load_images("/home/nerf/datav/Dataset/MNIST/raw/train-images-idx3-ubyte") # 60000, 784
-# #train_images = train_images / 255 - 0.5
-# train_images = (train_images - np.mean(train_images)) / np.var(train_images)
-# #train_images = (train_images - np.mean(train_images)) / np.var(train_images)
 
 config_file = './cfg/MNIST.yaml'
 trainset = Dataset(config=config_file, train=True)
@@ -30,25 +16,28 @@ testset  = Dataset(config=config_file, train=False)
 trainloader = DataLoader(trainset, batch_size=64, shuffle=True)
 testloader  = DataLoader(trainset, batch_size=64, shuffle=True)
 
-np.random.seed(3)
-classes = 10                  # 定义10个类别
-batch_size = 64              # 定义每个批次的大小
-epochs = 20                   # 退出策略，也就是最大把所有数据看10次
+np.random.seed(3) # 保证每次实验结果一样
+
+features = 784
+classes  = 10   
+
 lr = 1e-2
-numdata, features = trainset.images.shape  # 60000, 784
+lr_schedule = {
+    5 : 1e-3,
+    15: 1e-4,
+    18: 1e-5
+}
+epochs = 20 
+batch_size = 64
 
 
 model = Model(features, 1024, classes)
 #loss_func = SoftmaxCrossEntropy()
 loss_func = SigmoidCrossEntropy(model.params(), 0)
 optim = Adam(model, lr)
-iters = 0   # 定义迭代次数，因为我们需要展示loss曲线，那么x将会是iters
+iters = 0   # 定义迭代次数，因为我们需要展示loss曲线，那么 x 将会是iters
 
-lr_schedule = {
-    5: 1e-3,
-    15: 1e-4,
-    18: 1e-5
-}
+
 
 print("Start Training...")
 # 开始进行epoch循环，总数是epochs次

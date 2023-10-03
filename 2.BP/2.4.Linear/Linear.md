@@ -1,19 +1,33 @@
 &emsp;
-# Linear
-- input: X.shape = (batch_size, in_features)
-- output: Y.shape = (batch_size, out_features)
-    $$Y = X@W^T + B$$
-    <div align=center>
-        <image src='imgs/linear.png' width=800>
-    </div>
-- in_features: 输入的特征数
-- out_features: 输出特征数
-- weight: 权重，(out_features, in_features)
-- bias: 噪声/偏置，(out_features,)
+# LINEAR
+CLASS torch.nn.Linear(in_features, out_features, bias=True, device=None, dtype=None) [[SOURCE]](https://pytorch.org/docs/stable/_modules/torch/nn/modules/linear.html#Linear)
+
+Applies a linear transformation to the incoming data: $y=x A^T+b$
+$$Y = X@W^T + B$$
+This module supports TensorFloat32.
+
+On certain ROCm devices, when using float16 inputs this module will use different precision for backward.
+
+&emsp;
+## Parameters
+- in_features (int) - size of each input sample
+- out_features (int) - size of each output sample
+- bias (bool) - If set to False, the layer will not learn an additive bias. Default: True
+
+>Shape
+- Input: $\left(*, H_{i n}\right)$ where $*$ means any number of dimensions including none and $H_{\text {in }}=$ in_features.
+- Output: $\left(*, H_{\text {out }}\right)$ where all but the last dimension are the same shape as the input and $H_{\text {out }}=$ out_features.
+
+## Variables
+- weight (torch.Tensor) - the learnable weights of the module of shape `(out_features, in_features)`. The values are initialized from $\mathcal{U}(-\sqrt{k}, \sqrt{k})$, where $k=\frac{1}{\text{ in\_features}}$
+- bias - the learnable bias of the module of shape `(out_features)`. If bias is True, the values are initialized from $\mathcal{U}(-\sqrt{k}, \sqrt{k})$ where $k=\frac{1}{\text {in\_features }}$
+
 
 &emsp;
 ## forward 过程
-
+<div align=center>
+    <image src='imgs/linear.png' width=800>
+</div>
 
 
 
@@ -21,7 +35,6 @@
 ## backward 过程
 
 >矩阵相乘求导公式
-
 
 $$\begin{align}
     Y = X @ W^T + B，G = \frac{\nabla Loss}{\nabla Y}\\
@@ -35,8 +48,8 @@ $$\nabla W = (X^T @ G)^T = G^T @ X\\
 
 
 &emsp;
-## 代码实现
-
+## Implementation
+>Code
 ```py
 class Linear(Module):
     def __init__(self, in_fearures, out_features):

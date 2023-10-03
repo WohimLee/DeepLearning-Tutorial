@@ -22,7 +22,7 @@ class SGD(Optimizer):
     
     def step(self):
         for param in self.params:
-            param.value -= self.lr * param.delta
+            param.data -= self.lr * param.grad
             
 class SGDMomentum(Optimizer):
     def __init__(self, model, lr=1e-3, momentum=0.9):
@@ -35,8 +35,8 @@ class SGDMomentum(Optimizer):
     # 移动平均
     def step(self):
         for param in self.params:
-            param.v = self.momentum * param.v - self.lr * param.delta
-            param.value += param.v
+            param.v = self.momentum * param.v - self.lr * param.grad
+            param.data += param.v
             
 class Adam(Optimizer):
     def __init__(self, model, lr=1e-3, beta1=0.9, beta2=0.999, l2_regularization = 0):
@@ -55,10 +55,10 @@ class Adam(Optimizer):
         eps = 1e-8
         self.t += 1
         for param in self.params:
-            g = param.delta
+            g = param.grad
             param.m = self.beta1 * param.m + (1 - self.beta1) * g
             param.v = self.beta2 * param.v + (1 - self.beta2) * g ** 2
             mt_ = param.m / (1 - self.beta1 ** self.t)
             vt_ = param.v / (1 - self.beta2 ** self.t)
-            param.value -= self.lr * mt_ / (np.sqrt(vt_) + eps) + self.l2_regularization * param.value
+            param.data -= self.lr * mt_ / (np.sqrt(vt_) + eps) + self.l2_regularization * param.data
     
